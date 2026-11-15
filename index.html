@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Nelson L. Parungao | IT Portfolio</title>
+    <meta name="description" content="Portfolio of John Nelson L. Parungao, BSIT student specializing in Web Systems Technology.">
+
+    <script>
+        try {
+            var theme = localStorage.getItem("theme") ||
+                (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
+            document.documentElement.dataset.theme = theme;
+        } catch (error) {
+            document.documentElement.dataset.theme = "light";
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- SVG ICONS -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-sun" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l-1.4 1.4M17.7 6.3l1.4-1.4"/>
+        </symbol>
+
+        <symbol id="i-moon" viewBox="0 0 24 24">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>
+        </symbol>
+
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+        </symbol>
+
+        <symbol id="i-ur" viewBox="0 0 24 24">
+            <path d="M7 17 17 7M8 7h9v9"/>
+        </symbol>
+
+        <symbol id="i-left" viewBox="0 0 24 24">
+            <path d="M19 12H5M11 6l-6 6 6 6"/>
+        </symbol>
+
+        <symbol id="i-down" viewBox="0 0 24 24">
+            <path d="M12 5v14M6 13l6 6 6-6"/>
+        </symbol>
+
+        <symbol id="i-image" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="16" rx="2"/>
+            <circle cx="9" cy="10" r="1.5"/>
+            <path d="m21 16-5-5-9 9"/>
+        </symbol>
+
+        <symbol id="i-mail" viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <path d="m3 7 9 6 9-6"/>
+        </symbol>
+
+        <symbol id="i-phone" viewBox="0 0 24 24">
+            <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>
+        </symbol>
+
+        <symbol id="i-pin" viewBox="0 0 24 24">
+            <path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/>
+            <circle cx="12" cy="10" r="2.5"/>
+        </symbol>
+
+        <symbol id="i-user" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21a8 8 0 0 1 16 0"/>
+        </symbol>
+
+        <symbol id="i-award" viewBox="0 0 24 24">
+            <circle cx="12" cy="9" r="6"/>
+            <path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/>
+        </symbol>
+
+        <symbol id="i-x" viewBox="0 0 24 24">
+            <path d="M6 6l12 12M18 6 6 18"/>
+        </symbol>
+
+        <symbol id="i-send" viewBox="0 0 24 24">
+            <path d="m22 2-11 11M22 2l-7 20-4-9-9-4z"/>
+        </symbol>
+
+        <symbol id="i-link" viewBox="0 0 24 24">
+            <path d="M10 14a4 4 0 0 0 5.6 0l3-3a4 4 0 0 0-5.6-5.6l-1 1M14 10a4 4 0 0 0-5.6 0l-3 3a4 4 0 0 0 5.6 5.6l1-1"/>
+        </symbol>
+
+        <symbol id="i-github" viewBox="0 0 24 24">
+            <path fill="currentColor" stroke="none" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+        </symbol>
+
+        <symbol id="i-linkedin" viewBox="0 0 24 24">
+            <path fill="currentColor" stroke="none" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/>
+        </symbol>
+
+        <!-- TECHNOLOGY ICONS -->
+        <symbol id="l-html" viewBox="0 0 32 32">
+            <path fill="#E44D26" d="M4 3l2.2 24.6L16 30l9.8-2.4L28 3z"/>
+            <path fill="#F16529" d="M16 5.2v22.7l7.9-2L25.8 5.2z"/>
+            <text x="16" y="21.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="14" fill="#FAFAFA">5</text>
+        </symbol>
+
+        <symbol id="l-css" viewBox="0 0 32 32">
+            <path fill="#1572B6" d="M4 3l2.2 24.6L16 30l9.8-2.4L28 3z"/>
+            <path fill="#33A9DC" d="M16 5.2v22.7l7.9-2L25.8 5.2z"/>
+            <text x="16" y="21.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="14" fill="#FAFAFA">3</text>
+        </symbol>
+
+        <symbol id="l-js" viewBox="0 0 32 32">
+            <rect x="2" y="2" width="28" height="28" rx="3" fill="#F7DF1E"/>
+            <text x="28" y="27" text-anchor="end" font-family="Arial,sans-serif" font-weight="800" font-size="12" fill="#0D0D0D">JS</text>
+        </symbol>
+
+        <symbol id="l-php" viewBox="0 0 32 32">
+            <ellipse cx="16" cy="16" rx="15" ry="9.5" fill="#777BB4"/>
+            <text x="16" y="19.6" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-style="italic" font-size="10" fill="#0D0D0D">php</text>
+        </symbol>
+
+        <symbol id="l-python" viewBox="0 0 32 32">
+            <path fill="#3776AB" d="M15.8 3C10.5 3 10.9 5.3 10.9 5.3v2.4h5v.8H8.6S4.5 8 4.5 14.5s3.3 6.3 3.3 6.3h2v-3s-.1-3.3 3.2-3.3h5.2s3.1.1 3.1-3V6s.5-3-5.5-3z"/>
+            <circle cx="13.2" cy="5.8" r=".9" fill="#FAFAFA"/>
+            <path fill="#FFD43B" d="M16.2 29c5.3 0 4.9-2.3 4.9-2.3v-2.4h-5v-.8h7.3s4.1.5 4.1-6-3.3-6.3-3.3-6.3h-2v3s.1 3.3-3.2 3.3h-5.2s-3.1-.1-3.1 3v5.5S10.2 29 16.2 29z"/>
+            <circle cx="18.8" cy="26.2" r=".9" fill="#0D0D0D"/>
+        </symbol>
+
+        <symbol id="l-mysql" viewBox="0 0 32 32">
+            <path fill="#00758F" d="M4 8c0-2.5 5.4-4.5 12-4.5S28 5.5 28 8v16c0 2.5-5.4 4.5-12 4.5S4 26.5 4 24z"/>
+            <ellipse cx="16" cy="8" rx="12" ry="4.5" fill="#33A9C4"/>
+            <path fill="none" stroke="#FAFAFA" stroke-opacity=".5" stroke-width="1.5" d="M4 16c0 2.5 5.4 4.5 12 4.5S28 18.5 28 16"/>
+            <path fill="#F29111" d="M20 20.5 29 14l-2 8.5z"/>
+        </symbol>
+
+        <symbol id="l-figma" viewBox="0 0 38 57">
+            <path fill="#F24E1E" d="M19 0H9.5a9.5 9.5 0 0 0 0 19H19z"/>
+            <path fill="#FF7262" d="M19 0h9.5a9.5 9.5 0 0 1 0 19H19z"/>
+            <path fill="#A259FF" d="M19 19H9.5a9.5 9.5 0 0 0 0 19H19z"/>
+            <circle cx="28.5" cy="28.5" r="9.5" fill="#1ABCFE"/>
+            <path fill="#0ACF83" d="M19 38H9.5A9.5 9.5 0 1 0 19 47.5z"/>
+        </symbol>
+
+        <symbol id="l-git" viewBox="0 0 32 32">
+            <rect x="7.5" y="7.5" width="17" height="17" rx="2.5" transform="rotate(45 16 16)" fill="#F05032"/>
+            <path d="M13 13.5v5M14.5 13.5l4 3" stroke="#FAFAFA" stroke-width="1.6" fill="none"/>
+            <circle cx="13" cy="12.5" r="2" fill="#FAFAFA"/>
+            <circle cx="13" cy="19.5" r="2" fill="#FAFAFA"/>
+            <circle cx="19.5" cy="16.5" r="2" fill="#FAFAFA"/>
+        </symbol>
+
+        <symbol id="l-github" viewBox="0 0 24 24">
+            <path fill="currentColor" stroke="none" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+        </symbol>
+
+        <symbol id="l-vscode" viewBox="0 0 32 32">
+            <path fill="#007ACC" d="M23.5 2.8 12 13.3 6.4 9.1 4 10.2v11.6l2.4 1.1 5.6-4.2 11.5 10.5L28 27V5z"/>
+            <path fill="#FAFAFA" fill-opacity=".92" d="M23.5 9.5v13L15 16z"/>
+        </symbol>
+
+        <symbol id="l-office" viewBox="0 0 32 32">
+            <path fill="#D83B01" d="M4 9 19 3v26L4 23z"/>
+            <path fill="#FAFAFA" d="M19 7h9v18h-9z"/>
+            <path fill="#D83B01" d="M21 11h5v2h-5zM21 15h5v2h-5zM21 19h5v2h-5z"/>
+        </symbol>
+    </svg>
+
+    <!-- MAIN WEBSITE -->
+    <div class="site">
+
+        <!-- HEADER -->
+        <header class="row head" id="top">
+            <a class="cell logo lime" href="#home" aria-label="JNP, home">
+                &lt;/&gt; JNP
+            </a>
+
+            <nav class="cell nav" aria-label="Primary">
+                <ul id="links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
+                    <li class="mob"><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button class="cell tcell" id="theme" aria-label="Switch to dark mode" aria-pressed="false">
+                <svg class="ic m" aria-hidden="true"><use href="#i-moon"/></svg>
+                <svg class="ic s" aria-hidden="true"><use href="#i-sun"/></svg>
+            </button>
+
+            <a class="cell cta-h purple" href="#contact">
+                Contact Me
+                <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+
+            <button class="cell menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="links">
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="row hero" id="home">
+            <div class="cell hl grid">
+                <p class="tag purple wave">
+                    HELLO, I'M
+                    <i class="wv" aria-hidden="true">👋</i>
+                </p>
+
+                <h1 aria-label="John Nelson L. Parungao">
+                    <span class="ln"><span>JOHN NELSON</span></span>
+                    <span class="ln"><span>PARUNGAO</span></span>
+                </h1>
+
+                <p class="sub">
+                    ASPIRING IT PROFESSIONAL | BSIT STUDENT | WEB SYSTEMS TECHNOLOGY
+                </p>
+
+                <p class="lead">
+                    A passionate Information Technology student specializing in Web Systems Technology, interested in web development, UI/UX design, and creating practical technology solutions.
+                </p>
+
+                <div class="btns">
+                    <a class="btn lime" href="#projects">
+                        View My Projects
+                        <svg class="ic" aria-hidden="true"><use href="#i-ur"/></svg>
+                    </a>
+
+                    <a class="btn white" href="#contact">
+                        Contact Me
+                        <svg class="ic" aria-hidden="true"><use href="#i-down"/></svg>
+                    </a>
+                </div>
+
+                <p class="cw">CONNECT WITH ME</p>
+
+                <div class="socs">
+                    <span class="sq dis" aria-disabled="true" title="GitHub: N/A">
+                        <svg class="ic" aria-hidden="true"><use href="#i-github"/></svg>
+                        <i class="sr">GitHub: N/A</i>
+                    </span>
+
+                    <span class="sq dis" aria-disabled="true" title="LinkedIn: N/A">
+                        <svg class="ic" aria-hidden="true"><use href="#i-linkedin"/></svg>
+                        <i class="sr">LinkedIn: N/A</i>
+                    </span>
+
+                    <a class="sq" href="tel:+639164011481" aria-label="Call 09164011481">
+                        <svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>
+                    </a>
+
+                    <a class="sq" href="mailto:nelsonparungao03@gmail.com" aria-label="Email">
+                        <svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cell hr pink" id="hr">
+                <p class="avail">
+                    <i class="dot"></i>
+                    OPEN TO OJT OPPORTUNITIES
+                </p>
+
+                <div class="photo">
+                    <div class="pback lime"></div>
+
+                    <img class="pimg" src="images/portrait.jpg" alt="Portrait of John Nelson L. Parungao">
+
+                    <div class="code purple" aria-label="Quick profile">
+                        <span class="cl" style="--n:16;--d:.9s">
+                            <i class="g">&gt;</i> <i class="w">const</i> <i class="y">jnp</i> = {
+                        </span>
+
+                        <span class="cl" style="--n:22;--d:1.7s">
+                            &nbsp; <i class="p">role</i>: <i class="y">'BSIT Student'</i>,
+                        </span>
+
+                        <span class="cl" style="--n:22;--d:2.5s">
+                            &nbsp; <i class="p">focus</i>: <i class="y">'Web Systems'</i>,
+                        </span>
+
+                        <span class="cl" style="--n:28;--d:3.3s">
+                            &nbsp; <i class="p">stack</i>: <i class="y">'HTML, CSS, JS, PHP'</i>,
+                        </span>
+
+                        <span class="cl" style="--n:23;--d:4.2s">
+                            &nbsp; <i class="p">status</i>: <i class="y">'Open to OJT'</i>
+                        </span>
+
+                        <span class="cl cur" style="--n:1;--d:5s">}</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS MARQUEE -->
+        <section class="row strip" id="skills" aria-label="Tech stack">
+            <a class="cell sk-l purple" href="#skills-all">
+                SKILLS
+                <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+
+            <div class="cell marq">
+                <ul id="mq">
+                    <li><svg class="lg"><use href="#l-html"/></svg><span>HTML</span></li>
+                    <li><svg class="lg"><use href="#l-css"/></svg><span>CSS</span></li>
+                    <li><svg class="lg"><use href="#l-js"/></svg><span>JavaScript</span></li>
+                    <li><svg class="lg"><use href="#l-php"/></svg><span>PHP</span></li>
+                    <li><svg class="lg"><use href="#l-python"/></svg><span>Python</span></li>
+                    <li><svg class="lg"><use href="#l-mysql"/></svg><span>MySQL</span></li>
+                    <li><svg class="lg"><use href="#l-figma"/></svg><span>Figma</span></li>
+                    <li><svg class="lg"><use href="#l-git"/></svg><span>Git</span></li>
+                    <li><svg class="lg"><use href="#l-github"/></svg><span>GitHub</span></li>
+                    <li><svg class="lg"><use href="#l-vscode"/></svg><span>VS Code</span></li>
+                    <li><svg class="lg"><use href="#l-office"/></svg><span>Office</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section class="row about reveal" id="about">
+            <div class="cell">
+                <h2 class="h">ABOUT <span class="hl2">ME</span></h2>
+
+                <p class="p1">
+                    I am a fourth-year Bachelor of Science in Information Technology student specializing in Web Systems Technology at Nueva Ecija University of Science and Technology.
+                </p>
+
+                <p>
+                    I have developed practical experience in web development, UI/UX design, database management, software testing, and technical documentation through academic projects and collaborative development.
+                </p>
+
+                <p>
+                    I enjoy creating user-friendly interfaces and developing technology solutions that address real-world needs. I am continuously improving my technical knowledge and looking forward to gaining hands-on experience in the IT industry.
+                </p>
+            </div>
+
+            <div class="cell pink edu">
+                <h3 class="h3">EDUCATION</h3>
+
+                <dl class="card">
+                    <div>
+                        <dt>University</dt>
+                        <dd>Nueva Ecija University of Science and Technology</dd>
+                    </div>
+
+                    <div>
+                        <dt>Degree</dt>
+                        <dd>Bachelor of Science in Information Technology</dd>
+                    </div>
+
+                    <div>
+                        <dt>Specialization</dt>
+                        <dd>Web Systems Technology</dd>
+                    </div>
+
+                    <div>
+                        <dt>Expected Graduation</dt>
+                        <dd>2027</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- TECHNICAL SKILLS -->
+        <section class="row skills-all reveal" id="skills-all" aria-label="Technical skills">
+            <div class="cell skc">
+                <h3 class="chip pink">Programming</h3>
+                <ul class="tags">
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>PHP</li>
+                    <li>Python</li>
+                </ul>
+            </div>
+
+            <div class="cell skc">
+                <h3 class="chip lime">Database</h3>
+                <ul class="tags">
+                    <li>MySQL</li>
+                    <li>SQL</li>
+                    <li>Database Design</li>
+                </ul>
+            </div>
+
+            <div class="cell skc">
+                <h3 class="chip purple">Design</h3>
+                <ul class="tags">
+                    <li>Figma</li>
+                    <li>UI/UX Design</li>
+                    <li>Wireframing</li>
+                    <li>Prototyping</li>
+                </ul>
+            </div>
+
+            <div class="cell skc">
+                <h3 class="chip pink">Tools</h3>
+                <ul class="tags">
+                    <li>Visual Studio Code</li>
+                    <li>Git</li>
+                    <li>GitHub</li>
+                    <li>Microsoft Office</li>
+                </ul>
+            </div>
+
+            <div class="cell skc">
+                <h3 class="chip lime">Other Skills</h3>
+                <ul class="tags">
+                    <li>Software Testing</li>
+                    <li>Technical Documentation</li>
+                    <li>System Analysis</li>
+                    <li>Problem-Solving</li>
+                    <li>Team Collaboration</li>
+                    <li>Project Leadership</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PROJECTS AND CERTIFICATIONS -->
+        <section class="row pc reveal" id="projects">
+            <div class="cell proj">
+                <div class="ph-head">
+                    <h2 class="h">FEATURED PROJECTS</h2>
+
+                    <div class="nbtn">
+                        <span class="count">03 PROJECTS</span>
+
+                        <button class="sq pink" id="prev" aria-label="Previous project">
+                            <svg class="ic"><use href="#i-left"/></svg>
+                        </button>
+
+                        <button class="sq pink" id="next" aria-label="Next project">
+                            <svg class="ic"><use href="#i-arrow"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="car" id="car" aria-roledescription="carousel" aria-label="Featured projects">
+                    <div class="track" id="track">
+
+                        <!-- SIERRA PROJECT -->
+                        <article class="slide" data-title="SIERRA" data-col="pink" aria-roledescription="slide" aria-label="1 of 3">
+                            <div class="pframe pink">
+                                <div class="shot ph" role="img" aria-label="SIERRA screenshot placeholder">
+                                    <svg class="ic lg"><use href="#i-image"/></svg>
+                                    <span>Upload SIERRA screenshot</span>
+                                </div>
+                            </div>
+
+                            <div class="sinfo">
+                                <h3>SIERRA</h3>
+
+                                <p>
+                                    A web-based environmental reporting system that allows residents to report environmental issues with geotagged locations and supporting evidence.
+                                </p>
+
+                                <ul class="tags">
+                                    <li>PHP</li>
+                                    <li>HTML</li>
+                                    <li>CSS</li>
+                                    <li>JavaScript</li>
+                                    <li>MySQL</li>
+                                </ul>
+
+                                <button class="btn lime more-btn" type="button">
+                                    View Details
+                                    <svg class="ic"><use href="#i-arrow"/></svg>
+                                </button>
+                            </div>
+
+                            <div class="more" hidden>
+                                <p class="full">San Isidro Environmental Reporting and Response Application</p>
+
+                                <p class="d2">
+                                    SIERRA is a web-based environmental reporting and response application developed for the Municipality of San Isidro, Nueva Ecija. Residents submit environmental concerns using geotagged reports with photo or video evidence. Barangay officials and MENRO personnel review, investigate, monitor, and resolve environmental reports.
+                                </p>
+
+                                <ul class="tags">
+                                    <li>PHP</li>
+                                    <li>HTML</li>
+                                    <li>CSS</li>
+                                    <li>JavaScript</li>
+                                    <li>MySQL</li>
+                                </ul>
+
+                                <div class="m-shots" style="--n:3">
+                                    <div class="ph" role="img" aria-label="SIERRA landing page and resident dashboard">
+                                        <svg class="ic"><use href="#i-image"/></svg>
+                                        <span>SIERRA landing page and resident dashboard</span>
+                                    </div>
+
+                                    <div class="ph" role="img" aria-label="Environmental reporting and geotagging interface">
+                                        <svg class="ic"><use href="#i-image"/></svg>
+                                        <span>Environmental reporting and geotagging interface</span>
+                                    </div>
+
+                                    <div class="ph" role="img" aria-label="Barangay and MENRO management dashboard">
+                                        <svg class="ic"><use href="#i-image"/></svg>
+                                        <span>Barangay and MENRO management dashboard</span>
+                                    </div>
+                                </div>
+
+                                <div class="m-lists">
+                                    <div>
+                                        <h4>Objectives</h4>
+                                        <ul class="list">
+                                            <li>Provide an accessible environmental reporting platform.</li>
+                                            <li>Improve environmental report monitoring and management.</li>
+                                            <li>Enable location-based reporting through geotagging.</li>
+                                            <li>Support decision-making through dashboards and analytics.</li>
+                                            <li>Improve coordination between residents, barangay officials, and MENRO.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <h4>My contribution</h4>
+                                        <ul class="list">
+                                            <li>Served as project team leader.</li>
+                                            <li>Participated in UI/UX design.</li>
+                                            <li>Contributed to programming and system implementation.</li>
+                                            <li>Prepared technical documentation and design-phase diagrams.</li>
+                                            <li>Participated in system testing and evaluation.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="btns">
+                                    <span class="btn lime dis" aria-disabled="true">View Project: N/A</span>
+                                    <span class="btn white dis" aria-disabled="true">View Source Code: N/A</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- CINEMA TICKETING SYSTEM -->
+                        <article class="slide" data-title="Cinema Ticketing System" data-col="lime" aria-roledescription="slide" aria-label="2 of 3">
+                            <div class="pframe lime">
+                                <div class="shot ph" role="img" aria-label="Cinema Ticketing System screenshot placeholder">
+                                    <svg class="ic lg"><use href="#i-image"/></svg>
+                                    <span>Upload Cinema Ticketing System screenshot</span>
+                                </div>
+                            </div>
+
+                            <div class="sinfo">
+                                <h3>Cinema Ticketing System</h3>
+
+                                <p>
+                                    A ticketing application designed to manage movie ticket reservations and booking transactions.
+                                </p>
+
+                                <ul class="tags">
+                                    <li>Python</li>
+                                </ul>
+
+                                <button class="btn lime more-btn" type="button">
+                                    View Details
+                                    <svg class="ic"><use href="#i-arrow"/></svg>
+                                </button>
+                            </div>
+
+                            <div class="more" hidden>
+                                <p class="full">Academic programming project</p>
+
+                                <p class="d2">
+                                    A Python-based academic programming project designed to organize movie ticket reservations and booking activities.
+                                </p>
+
+                                <ul class="tags">
+                                    <li>Python</li>
+                                </ul>
+
+                                <div class="m-shots" style="--n:2">
+                                    <div class="ph" role="img" aria-label="Main system interface">
+                                        <svg class="ic"><use href="#i-image"/></svg>
+                                        <span>Main system interface</span>
+                                    </div>
+
+                                    <div class="ph" role="img" aria-label="Movie selection or booking interface">
+                                        <svg class="ic"><use href="#i-image"/></svg>
+                                        <span>Movie selection or booking interface</span>
+                                    </div>
+                                </div>
+
+                                <div class="m-lists">
+                                    <div>
+                                        <h4>Objectives</h4>
+                                        <ul class="list">
+                                            <li>Develop a functional cinema ticketing system.</li>
+                                            <li>Organize movie ticket reservation processes.</li>
+                                            <li>Demonstrate programming and problem-solving skills.</li>
+                                            <li>Provide a structured approach to managing bookings.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <h4>My contribution</h4>
+                                        <ul class="list">
+                                            <li>Participated in system development and programming, including booking-related functionalities.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="btns">
+                                    <span class="btn lime dis" aria-disabled="true">View Project: N/A</span>
+                                    <span class="btn white dis" aria-disabled="true">View Source Code: N/A</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- NOVOBANK PROJECT -->
+                        <article class="slide" data-title="NovoBank" data-col="purple" aria-roledescription="slide" aria-label="3 of 3">
+                            <div class="pframe purple">
+                                <div class="shot ph" role="img" aria-label="NovoBank screenshot placeholder">
+                                    <svg class="ic lg"><use href="#i-image"/></svg>
+                                    <span>Upload NovoBank screenshot</span>
+                                </div>
+                            </div>
+
+                            <div class="sinfo">
+                                <h3>NovoBank</h3>
+
+                                <p>
+                                    A conceptual digital banking application focused on providing a clean and user-friendly banking interface.
+                                </p>
+
+                                <ul class="tags">
+                                    <li>Figma</li>
+                                </ul>
+
+                                <button class="btn lime more-btn" type="button">
+                                    View Details
+                                    <svg class="ic"><use href="#i-arrow"/></svg>
+                                </button>
+                            </div>
+
+                            <div class="more" hidden>
+                                <p class="full">Banking Application UI/UX Design</p>
+
+                                <p class="d2">
+                                    NovoBank is a conceptual digital banking application design project focused on creating a clean, organized, and user-friendly banking interface.
+                                </p>
+
+                                <ul class="tags">
+                                    <li>Figma</li>
+                                </ul>
+
+                                <div class="m-shots" style="--n:2">
+                                    <div class="ph" role="img" aria-label="NovoBank main dashboard design">
+                                        <svg class="ic"><use href="#i-image"/></svg>
+                                        <span>NovoBank main dashboard design</span>
+                                    </div>
+
+                                    <div class="ph" role="img" aria-label="Banking interface or transaction screen">
+                                        <svg class="ic"><use href="#i-image"/></svg>
+                                        <span>Banking interface or transaction screen</span>
+                                    </div>
+                                </div>
+
+                                <div class="m-lists">
+                                    <div>
+                                        <h4>Objectives</h4>
+                                        <ul class="list">
+                                            <li>Design an intuitive digital banking interface.</li>
+                                            <li>Apply UI/UX design principles.</li>
+                                            <li>Organize banking information and features.</li>
+                                            <li>Develop a visual prototype illustrating the application's layout and user flow.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <h4>My contribution</h4>
+                                        <ul class="list">
+                                            <li>Participated in conceptualization and visual design.</li>
+                                            <li>Worked on interface layouts and visual consistency.</li>
+                                            <li>Applied UI/UX principles to improve user experience.</li>
+                                            <li>Contributed to the banking application prototype.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="btns">
+                                    <span class="btn lime dis" aria-disabled="true">View Project: N/A</span>
+                                    <span class="btn white dis" aria-disabled="true">View Source Code: N/A</span>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+
+                <div class="dots" id="dots" role="tablist" aria-label="Choose project"></div>
+            </div>
+
+            <!-- CERTIFICATIONS -->
+            <div class="cell certs lime" id="certifications">
+                <h2 class="h">CERTIFICATIONS</h2>
+
+                <ul class="clist">
+                    <li>
+                        <button class="ctile g0" type="button"
+                            data-title="Information Technology Specialist: HTML and CSS"
+                            data-issuer="Certiport"
+                            data-year="2026">
+                            <b>Information Technology Specialist: HTML and CSS</b>
+                            <small>Certiport · 2026</small>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="ctile g1" type="button"
+                            data-title="Database 101: Data Storage, SQL and Query Optimization"
+                            data-issuer="Issuer not listed"
+                            data-year="2026">
+                            <b>Database 101: Data Storage, SQL and Query Optimization</b>
+                            <small>Issuer not listed · 2026</small>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="ctile g2" type="button"
+                            data-title="Data-Driven Crisis Management: AI and Predictive Analytics for Emergency Preparedness"
+                            data-issuer="Issuer not listed"
+                            data-year="2026">
+                            <b>Data-Driven Crisis Management: AI and Predictive Analytics for Emergency Preparedness</b>
+                            <small>Issuer not listed · 2026</small>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="ctile g0" type="button"
+                            data-title="Learning Advocate 2026 Series: Emerging IT Innovations"
+                            data-issuer="Issuer not listed"
+                            data-year="2026">
+                            <b>Learning Advocate 2026 Series: Emerging IT Innovations</b>
+                            <small>Issuer not listed · 2026</small>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="ctile g1" type="button"
+                            data-title="InfoDiscover 2026"
+                            data-issuer="Issuer not listed"
+                            data-year="2026">
+                            <b>InfoDiscover 2026</b>
+                            <small>Issuer not listed · 2026</small>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button class="ctile g2" type="button"
+                            data-title="AI Tools 101: How to Use Google Gemini Like a Pro"
+                            data-issuer="Issuer not listed"
+                            data-year="2026">
+                            <b>AI Tools 101: How to Use Google Gemini Like a Pro</b>
+                            <small>Issuer not listed · 2026</small>
+                        </button>
+                    </li>
+                </ul>
+
+                <p class="cnote">TAP A CERTIFICATE FOR DETAILS</p>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section class="row exp reveal" id="experience">
+            <div class="cell pink exl">
+                <h2 class="h">
+                    EXPERIENCE
+                    <svg class="ic"><use href="#i-arrow"/></svg>
+                </h2>
+            </div>
+
+            <div class="cell tl">
+                <ol class="timeline">
+
+                    <li>
+                        <h3>
+                            TEAM LEADER
+                            <i class="bu">•</i>
+                            SIERRA CAPSTONE PROJECT
+                        </h3>
+
+                        <ul class="list">
+                            <li>Led and coordinated the capstone development team.</li>
+                            <li>Participated in UI/UX design, system development, technical documentation, and system testing.</li>
+                            <li>Participated in project presentation and evaluation.</li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <h3>ACCOMPLISHMENTS</h3>
+
+                        <ul class="list">
+                            <li>Successfully completed the SIERRA capstone project defense.</li>
+                            <li>Participated in system evaluation involving residents, barangay officials, and MENRO representatives.</li>
+                            <li>Gained experience in ISO/IEC 25010 software quality evaluation.</li>
+                            <li>Earned the Information Technology Specialist: HTML and CSS certification from Certiport.</li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <h3>
+                            CURRENT STATUS
+                            <i class="bu">•</i>
+                            OJT APPLICANT
+                        </h3>
+
+                        <p class="tag lime">CURRENTLY SEEKING OJT OPPORTUNITIES</p>
+
+                        <p class="obj">
+                            Seeking an opportunity to gain hands-on experience, strengthen technical competencies, and contribute to an organization's IT operations.
+                        </p>
+                    </li>
+
+                </ol>
+            </div>
+
+            <div class="cell purple cta grid2">
+                <h2 class="h w">LET'S WORK TOGETHER.</h2>
+
+                <p>
+                    Interested in collaborating or offering an OJT opportunity? Feel free to reach out.
+                </p>
+
+                <a class="btn white" href="#contact">
+                    Get in Touch
+                    <svg class="ic"><use href="#i-arrow"/></svg>
+                </a>
+
+                <svg class="burst" viewBox="0 0 100 100" aria-hidden="true">
+                    <polygon points="100.0,50.0 86.7,59.8 93.3,75.0 76.9,76.9 75.0,93.3 59.8,86.7 50.0,100.0 40.2,86.7 25.0,93.3 23.1,76.9 6.7,75.0 13.3,59.8 0.0,50.0 13.3,40.2 6.7,25.0 23.1,23.1 25.0,6.7 40.2,13.3 50.0,0.0 59.8,13.3 75.0,6.7 76.9,23.1 93.3,25.0 86.7,40.2"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="row contact reveal" id="contact">
+            <div class="cell pink ci">
+                <h2 class="h">GET IN TOUCH</h2>
+
+                <ul class="clist2">
+
+                    <li>
+                        <span class="sq sm">
+                            <svg class="ic"><use href="#i-user"/></svg>
+                        </span>
+
+                        <div>
+                            <small>NAME</small>
+                            <span>John Nelson L. Parungao</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="sq sm">
+                            <svg class="ic"><use href="#i-mail"/></svg>
+                        </span>
+
+                        <div>
+                            <small>EMAIL</small>
+                            <a href="mailto:nelsonparungao03@gmail.com">nelsonparungao03@gmail.com</a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="sq sm">
+                            <svg class="ic"><use href="#i-phone"/></svg>
+                        </span>
+
+                        <div>
+                            <small>PHONE</small>
+                            <a href="tel:+639164011481">09164011481</a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="sq sm">
+                            <svg class="ic"><use href="#i-pin"/></svg>
+                        </span>
+
+                        <div>
+                            <small>LOCATION</small>
+                            <span>Nueva Ecija, Philippines</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="sq sm">
+                            <svg class="ic"><use href="#i-link"/></svg>
+                        </span>
+
+                        <div>
+                            <small>LINKEDIN</small>
+                            <span>N/A</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="sq sm">
+                            <svg class="ic"><use href="#i-link"/></svg>
+                        </span>
+
+                        <div>
+                            <small>GITHUB</small>
+                            <span>N/A</span>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="btns">
+                    <a class="btn lime" href="mailto:nelsonparungao03@gmail.com">
+                        Email Me
+                        <svg class="ic"><use href="#i-arrow"/></svg>
+                    </a>
+
+                    <a class="btn white" href="tel:+639164011481">
+                        Call Me
+                    </a>
+                </div>
+            </div>
+
+            <!-- CONTACT FORM -->
+            <form class="cell form" id="form" novalidate>
+                <h2 class="h">SEND A MESSAGE</h2>
+
+                <label>
+                    NAME
+                    <input name="name" required autocomplete="name">
+                    <small></small>
+                </label>
+
+                <label>
+                    EMAIL
+                    <input name="email" type="email" required autocomplete="email">
+                    <small></small>
+                </label>
+
+                <label>
+                    SUBJECT
+                    <input name="subject" required>
+                    <small></small>
+                </label>
+
+                <label>
+                    MESSAGE
+                    <textarea name="message" rows="4" required minlength="10"></textarea>
+                    <small></small>
+                </label>
+
+                <button class="btn lime" type="submit">
+                    Send Message
+                    <svg class="ic"><use href="#i-send"/></svg>
+                </button>
+
+                <p class="fnote" id="note" role="status">
+                    Frontend-only form: sending opens your email app with the message prefilled.
+                </p>
+            </form>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="row foot">
+            <a class="cell logo lime" href="#home" aria-label="JNP, back to top">
+                &lt;/&gt; JNP
+            </a>
+
+            <div class="cell fc">
+                <p>© 2026 John Nelson L. Parungao. All Rights Reserved.</p>
+
+                <p class="ft">Designed with simplicity and purpose.</p>
+
+                <nav aria-label="Footer">
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#certifications">Certifications</a>
+                </nav>
+            </div>
+
+            <div class="cell fs">
+                <span class="sq dis" aria-disabled="true" title="GitHub: N/A">
+                    <svg class="ic"><use href="#i-github"/></svg>
+                    <i class="sr">GitHub: N/A</i>
+                </span>
+
+                <span class="sq dis" aria-disabled="true" title="LinkedIn: N/A">
+                    <svg class="ic"><use href="#i-linkedin"/></svg>
+                    <i class="sr">LinkedIn: N/A</i>
+                </span>
+
+                <a class="sq" href="tel:+639164011481" aria-label="Call 09164011481">
+                    <svg class="ic"><use href="#i-phone"/></svg>
+                </a>
+
+                <a class="sq" href="mailto:nelsonparungao03@gmail.com" aria-label="Email">
+                    <svg class="ic"><use href="#i-mail"/></svg>
+                </a>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- CERTIFICATE DIALOG -->
+    <dialog class="dlg" id="dlg" aria-labelledby="dt">
+        <div class="dh" id="dh">
+            <h2 id="dt"></h2>
+
+            <button class="sq" id="dx" aria-label="Close">
+                <svg class="ic"><use href="#i-x"/></svg>
+            </button>
+        </div>
+
+        <div class="db" id="db"></div>
+    </dialog>
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+</html>
