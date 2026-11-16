@@ -1,5 +1,7 @@
 (() => {
+  const init = () => {
   const $ = (s, r = document) => [...r.querySelectorAll(s)];
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const root = document.documentElement, reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
 
   const tbtn = document.getElementById('theme');
@@ -97,6 +99,8 @@
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
   $('.more-btn').forEach(b => b.addEventListener('click', () => { const s = b.closest('.folder'); open(s.dataset.title, s.dataset.col, $('.more', s)[0].innerHTML); }));
   const cols = ['pink', 'lime', 'purple'];
+  const certCfg = (window.PORTFOLIO_CONTENT && window.PORTFOLIO_CONTENT.certifications) || {};
+  const certViewLabel = certCfg.viewLabel || 'View Certificate';
   $('.cshot').forEach((button, index) => {
     const thumb = $('img', button)[0];
     if (thumb) {
@@ -106,30 +110,35 @@
     }
 
     button.addEventListener('click', () => {
+      const title = button.dataset.title || 'Certificate';
+      const issuer = button.dataset.issuer || 'Issuer not listed';
+      const year = button.dataset.year || '';
+      const link = button.dataset.link || '';
+      const linkHTML = link
+        ? `<a class="btn lime" href="${esc(link)}"${/^https?:/i.test(link) ? ' target="_blank" rel="noopener"' : ''}>${esc(certViewLabel)}</a>`
+        : `<span class="btn lime dis" aria-disabled="true">${esc(certViewLabel)}: N/A</span>`;
       const certificateDetails = `
-        <img class="cd-img" alt="${button.dataset.title}">
-        <h3 class="full">${button.dataset.title}</h3>
+        <img class="cd-img" alt="${esc(title)}">
+        <h3 class="full">${esc(title)}</h3>
         <p class="cd-meta">
-          <span class="tag lime">${button.dataset.year}</span>
-          <span>${button.dataset.issuer}</span>
+          <span class="tag lime">${esc(year)}</span>
+          <span>${esc(issuer)}</span>
         </p>
-        <div class="btns">
-          <span class="btn lime dis" aria-disabled="true">View Certificate: N/A</span>
-        </div>
+        <div class="btns">${linkHTML}</div>
       `;
 
-      open('Certificate', cols[index % 3], certificateDetails);
+      open(certCfg.modalTitle || 'Certificate', cols[index % 3], certificateDetails);
 
       const certificateImage = db.querySelector('.cd-img');
       certificateImage.addEventListener('error', () => {
         const placeholder = document.createElement('div');
         placeholder.className = 'ph cd-img';
         placeholder.setAttribute('role', 'img');
-        placeholder.setAttribute('aria-label', `${button.dataset.title} certificate image placeholder`);
+        placeholder.setAttribute('aria-label', `${title} certificate image placeholder`);
         placeholder.innerHTML = `<svg class="ic lg" aria-hidden="true"><use href="#i-image"/></svg><span>Certificate image coming soon</span>`;
         certificateImage.replaceWith(placeholder);
       }, { once: true });
-      certificateImage.src = button.dataset.image;
+      certificateImage.src = button.dataset.image || '';
     });
   });
 
@@ -143,4 +152,15 @@
     location.href = `mailto:nelsonparungao03@gmail.com?subject=${encodeURIComponent(d.get('subject'))}&body=${encodeURIComponent(body)}`;
     note.textContent = 'Your email app should open with the message ready to send.'; form.reset();
   });
+  };
+
+  const start = () => {
+    const ready = window.CONTENT_READY || Promise.resolve();
+    Promise.resolve(ready).catch(() => {}).then(() => {
+      try { init(); } catch (err) { console.error('[portfolio] UI init failed.', err); }
+    });
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();

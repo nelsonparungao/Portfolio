@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Portfolio Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css?v=6">
+</head>
+
+<body>
+    <header class="adm-head">
+        <a class="adm-brand" href="index.html">
+            <span>&lt;/&gt; JNP</span>
+            <b>ADMIN</b>
+        </a>
+
+        <div class="adm-head-actions">
+            <a class="adm-ghost" href="index.html" target="_blank" rel="noopener">View site</a>
+            <button class="adm-ghost" id="logout" type="button" hidden>Sign out</button>
+        </div>
+    </header>
+
+    <main class="adm-wrap">
+        <!-- NOT CONFIGURED -->
+        <section class="adm-panel" id="setup" hidden>
+            <p class="adm-kicker">ONE-TIME SETUP</p>
+            <h1>Connect Supabase</h1>
+            <p>
+                This admin needs a Supabase project before it can publish changes.
+                Follow the steps in <code>README-ADMIN.md</code>, then paste your
+                Project URL and anon key into <code>supabase-config.js</code>.
+            </p>
+
+            <ol class="adm-steps">
+                <li>Create a free project at <a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a>.</li>
+                <li>Run <code>supabase/schema.sql</code> in the SQL editor.</li>
+                <li>Create your admin login under Authentication â†’ Users.</li>
+                <li>Add your user to the <code>admins</code> table.</li>
+                <li>Paste the project URL and anon key into <code>supabase-config.js</code>.</li>
+            </ol>
+
+            <button class="adm-btn" id="demoBtn" type="button">Open demo editor</button>
+        </section>
+
+        <!-- LOGIN -->
+        <section class="adm-panel adm-login" id="login" hidden>
+            <p class="adm-kicker">SECURE AREA</p>
+            <h1>Sign in</h1>
+            <p>Use the admin account you created in Supabase Authentication.</p>
+
+            <form id="loginForm">
+                <label>
+                    EMAIL
+                    <input id="loginEmail" type="email" autocomplete="username" required>
+                </label>
+
+                <label>
+                    PASSWORD
+                    <input id="loginPassword" type="password" autocomplete="current-password" required>
+                </label>
+
+                <p class="adm-error" id="loginError" role="alert" hidden></p>
+
+                <button class="adm-btn" type="submit" id="loginBtn">Sign in</button>
+            </form>
+        </section>
+
+        <!-- EDITOR -->
+        <section class="adm-editor" id="editor" hidden>
+            <aside class="adm-side">
+                <p class="adm-kicker">CONTENT</p>
+                <nav class="adm-sections" id="sectionNav"></nav>
+
+                <div class="adm-side-tools">
+                    <button class="adm-ghost" id="exportBtn" type="button">Export JSON</button>
+                    <button class="adm-ghost" id="importBtn" type="button">Import JSON</button>
+                    <input id="importFile" type="file" accept="application/json,.json" hidden>
+                </div>
+            </aside>
+
+            <div class="adm-main">
+                <div class="adm-status" id="status" role="status"></div>
+                <form id="editorForm" autocomplete="off"></form>
+            </div>
+        </section>
+    </main>
+
+    <div class="adm-savebar" id="savebar" hidden>
+        <span id="dirtyText">Unsaved changes</span>
+        <button class="adm-btn" id="saveBtn" type="button">Save &amp; publish</button>
+    </div>
+
+    <div class="adm-toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="supabase-config.js?v=6"></script>
+    <script src="content-default.js?v=6"></script>
+    <script src="content-schema.js?v=6"></script>
+    <script src="admin.js?v=6"></script>
+</body>
+</html>
