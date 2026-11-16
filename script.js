@@ -15,6 +15,11 @@
   const setMenu = o => { nav.classList.toggle('open', o); menu.setAttribute('aria-expanded', o); };
   menu.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
   nav.addEventListener('click', e => e.target.closest('a') && setMenu(false));
+  document.addEventListener('click', e => {
+    if (nav.classList.contains('open') && !nav.contains(e.target) && !menu.contains(e.target)) setMenu(false);
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  matchMedia('(min-width:961px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 
   const links = $('a', nav), alias = { 'skills-all': 'skills', contact: null };
   const spy = new IntersectionObserver(es => es.forEach(e => {

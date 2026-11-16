@@ -52,6 +52,10 @@ body {
   transition:background .3s,color .3s;
 }
 
+p {
+  text-wrap:pretty;
+}
+
 /* Links */
 a {
   color:inherit;
@@ -155,6 +159,7 @@ ul,ol {
   display:flex;
   align-items:center;
   gap:.6rem;
+  text-wrap:balance;
 }
 
 /* Buttons */
@@ -501,6 +506,7 @@ h1 {
   font-size:clamp(2.2rem,5.2vw,4.3rem);
   line-height:.98;
   letter-spacing:-.01em;
+  text-wrap:balance;
 }
 .ln {
   display:block;
@@ -520,12 +526,24 @@ h1 {
   }
 }
 .sub {
+  display:flex;
+  flex-wrap:wrap;
   font-weight:700;
   font-size:.78rem;
   letter-spacing:.04em;
+  line-height:1.5;
+}
+.sub span {
+  white-space:nowrap;
+}
+.sub span:not(:last-child)::after {
+  content:"|";
+  margin:0 .45rem;
+  opacity:.6;
 }
 .lead {
   max-width:44ch;
+  text-wrap:pretty;
 }
 .cw {
   font-weight:700;
@@ -688,6 +706,9 @@ h1 {
 }
 .p {
   color:var(--pink);
+}
+.code .p {
+  color:#FFD9E3;
 }
 
 /* Strip marquee */
@@ -1332,8 +1353,29 @@ html.lock {
 
 /* Responsive rules */
 @media(max-width:960px) {
+  body {
+    padding:clamp(.7rem,2vw,1.1rem);
+  }
+  .site {
+    box-shadow:7px 7px 0 var(--bd);
+  }
   .head {
-    grid-template-columns:1fr auto auto auto;
+    grid-template-columns:1fr auto auto;
+    position:relative;
+    z-index:40;
+  }
+  .head .cell {
+    padding:.75rem 1rem;
+  }
+  .head .logo {
+    border-right:4px solid var(--bd);
+  }
+  .head .tcell,.head .menu-btn {
+    width:3.4rem;
+    padding:0;
+  }
+  .head .tcell {
+    border-right:4px solid var(--bd);
   }
   .nav {
     position:absolute;
@@ -1341,14 +1383,28 @@ html.lock {
     left:0;
     right:0;
     z-index:30;
+    display:block;
     background:var(--paper);
     border:0;
     border-bottom:4px solid var(--bd);
     padding:0;
-    display:none;
+    max-height:calc(100dvh - 5rem);
+    overflow:auto;
+    overscroll-behavior:contain;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-.6rem);
+    pointer-events:none;
+    transition:opacity .2s,transform .25s var(--ease),visibility .2s;
   }
   .nav.open {
-    display:block;
+    opacity:1;
+    visibility:visible;
+    transform:none;
+    pointer-events:auto;
+  }
+  .head .cell.nav {
+    border-bottom:4px solid var(--bd);
   }
   .nav ul {
     flex-direction:column;
@@ -1356,27 +1412,44 @@ html.lock {
   }
   .nav li a {
     display:block;
-    padding:1rem 1.4rem;
+    padding:1rem 1.25rem;
     border-top:3px solid var(--bd);
     background-image:none;
   }
   .nav li a:hover,.nav li a.active {
     background:var(--lime);
+    color:#0D0D0D;
   }
   .nav .mob {
     display:block;
   }
-  .head {
-    position:relative;
-  }
   .menu-btn {
-    display:block;
+    display:grid;
+    place-items:center;
+    position:relative;
+    border:0;
+  }
+  .menu-btn span {
+    left:50%;
+    right:auto;
+    width:1.15rem;
+    height:2.5px;
+    margin-left:-.575rem;
+  }
+  .menu-btn span:first-child {
+    top:calc(50% - 4px);
+  }
+  .menu-btn span:last-child {
+    top:calc(50% + 4px);
+  }
+  .menu-btn[aria-expanded=true] span:first-child {
+    transform:translateY(4px) rotate(45deg);
+  }
+  .menu-btn[aria-expanded=true] span:last-child {
+    transform:translateY(-4px) rotate(-45deg);
   }
   .cta-h {
     display:none;
-  }
-  .tcell {
-    border-right:4px solid var(--bd);
   }
   .hero,.about,.pc,.exp,.contact {
     grid-template-columns:1fr;
@@ -1390,9 +1463,6 @@ html.lock {
   }
   .head .cell {
     border-bottom:0;
-  }
-  .head .logo,.head .tcell {
-    border-right:4px solid var(--bd);
   }
   .skills-all {
     grid-template-columns:1fr 1fr;
@@ -1428,16 +1498,164 @@ html.lock {
     justify-content:center;
   }
   .hr {
-    min-height:420px;
+    min-height:0;
+    padding-block:2.4rem 3rem;
   }
   .photo {
-    margin-left:2.5rem;
+    width:min(52%,300px);
+    margin:2rem auto 4rem;
   }
   .m-lists {
     grid-template-columns:1fr;
   }
 }
-@media(max-width:560px) {
+@media(max-width:640px) {
+  body {
+    padding:.55rem;
+    font-size:.86rem;
+  }
+  .site {
+    border-width:3px;
+    box-shadow:5px 5px 0 var(--bd);
+  }
+  .cell {
+    padding:1.05rem 1rem;
+  }
+  .head .cell {
+    padding-block:.7rem;
+  }
+  .head .logo {
+    padding-inline:1rem;
+    font-size:.92rem;
+  }
+  .head .tcell,.head .menu-btn {
+    width:3.2rem;
+  }
+  .nav {
+    max-height:calc(100dvh - 4.5rem);
+  }
+  .nav li a {
+    padding:.95rem 1.1rem;
+    font-size:.8rem;
+  }
+  .hl {
+    gap:.85rem;
+    padding-block:1.35rem 1.5rem;
+  }
+  .tag.wave {
+    font-size:.68rem;
+  }
+  h1 {
+    font-size:clamp(1.9rem,9.7vw,2.5rem);
+  }
+  .sub {
+    flex-direction:column;
+    gap:.08rem;
+    font-size:.69rem;
+    letter-spacing:.045em;
+  }
+  .sub span:not(:last-child)::after {
+    display:none;
+  }
+  .lead {
+    max-width:none;
+    font-size:.85rem;
+    line-height:1.65;
+  }
+  .cw {
+    margin-top:.15rem;
+    font-size:.68rem;
+  }
+  .hero .btns {
+    display:grid;
+    width:100%;
+    gap:.65rem;
+    margin-top:.45rem;
+  }
+  .hero .btn {
+    justify-content:space-between;
+    width:100%;
+  }
+  .socs {
+    gap:.5rem;
+  }
+  .socs .sq {
+    width:2.75rem;
+    height:2.75rem;
+  }
+  .hr {
+    padding:1.15rem 1rem 1.6rem;
+    align-items:stretch;
+    gap:0;
+  }
+  .avail {
+    position:static;
+    align-self:flex-start;
+    rotate:-1deg;
+    font-size:.62rem;
+    padding:.3rem .55rem;
+  }
+  .photo {
+    width:min(64%,280px);
+    margin:1.7rem auto 0;
+    transform:none;
+  }
+  .pback {
+    inset:0 0 auto;
+    aspect-ratio:3/4;
+    transform:translate(12px,-12px);
+  }
+  .code {
+    position:relative;
+    inset:auto;
+    z-index:2;
+    width:calc(100% + 4rem);
+    margin:2rem 0 0 -2rem;
+    transform:none;
+    box-shadow:5px 5px 0 var(--bd);
+    font-size:.68rem;
+  }
+  .cl {
+    width:auto;
+    animation:none;
+  }
+  .strip {
+    grid-template-columns:1fr;
+  }
+  .sk-l {
+    justify-content:space-between;
+    border-right:0;
+    border-bottom:4px solid var(--bd);
+    padding:.9rem 1rem;
+    font-size:1.05rem;
+  }
+  .marq ul {
+    padding:.95rem 0;
+    animation-duration:24s;
+  }
+  .marq li {
+    min-width:6.4rem;
+    gap:.3rem;
+    font-size:.66rem;
+  }
+  .marq li .lg {
+    width:32px;
+    height:32px;
+  }
+  .about .cell:first-child {
+    gap:.85rem;
+  }
+  .p1 {
+    font-size:.98rem;
+    line-height:1.5;
+  }
+  .edu {
+    gap:.8rem;
+  }
+  .card {
+    padding:.9rem;
+    box-shadow:4px 4px 0 var(--bd);
+  }
   .skills-all {
     grid-template-columns:1fr;
   }
@@ -1445,22 +1663,219 @@ html.lock {
     border-right:0!important;
     border-bottom:4px solid var(--bd)!important;
   }
-  .photo {
-    width:62%;
-    margin-left:2rem;
+  .skills-all .cell:last-child {
+    border-bottom:0!important;
   }
-  .code {
-    left:-1.8rem;
-    width:min(270px,100vw - 5rem);
+  .skc {
+    grid-template-columns:auto 1fr;
+    align-items:start;
+    gap:.55rem .85rem;
+    padding:.9rem 1rem;
   }
-  .m-shots {
-    grid-template-columns:1fr 1fr;
+  .chip {
+    margin-top:.05rem;
+    padding:.24rem .5rem;
+    border-width:2px;
+    box-shadow:2px 2px 0 var(--bd);
+    font-size:.72rem;
+    white-space:nowrap;
   }
-  .avail {
-    font-size:.6rem;
+  .tags {
+    gap:.35rem;
+  }
+  .tags li {
+    padding:.14rem .45rem;
+    border-width:2px;
+    font-size:.68rem;
+  }
+  .proj {
+    gap:.95rem;
+  }
+  .ph-head {
+    gap:.5rem;
+  }
+  .ph-head .h {
+    min-width:0;
+    font-size:clamp(.96rem,4.3vw,1.1rem);
+  }
+  .nbtn {
+    margin-left:auto;
+    gap:.4rem;
   }
   .nbtn .count {
     display:none;
+  }
+  .nbtn .sq {
+    width:2.35rem;
+    height:2.35rem;
+    box-shadow:2px 2px 0 var(--bd);
+  }
+  .car {
+    margin-right:4px;
+    margin-bottom:4px;
+    box-shadow:4px 4px 0 var(--bd);
+  }
+  .pframe {
+    padding:9px;
+  }
+  .shot {
+    border-width:3px;
+  }
+  .sinfo {
+    gap:.7rem;
+    padding:1rem;
+  }
+  .sinfo h3 {
+    font-size:1rem;
+  }
+  .sinfo p {
+    font-size:.82rem;
+  }
+  .dots {
+    gap:.5rem;
+  }
+  .dots button {
+    width:12px;
+    height:12px;
+  }
+  .certs {
+    gap:.8rem;
+    padding:1rem;
+  }
+  .clist {
+    gap:.55rem;
+  }
+  .ctile {
+    padding:.65rem .75rem;
+    box-shadow:3px 3px 0 var(--bd);
+  }
+  .ctile b {
+    font-size:.72rem;
+  }
+  .ctile small {
+    font-size:.64rem;
+  }
+  .exl {
+    padding-block:1rem;
+  }
+  .tl {
+    padding:1.1rem 1rem;
+  }
+  .timeline {
+    gap:1.35rem;
+    padding-left:1.65rem;
+  }
+  .timeline::before {
+    left:4px;
+  }
+  .timeline>li::before {
+    left:-1.65rem;
+    top:.35rem;
+    width:12px;
+    height:12px;
+  }
+  .timeline h3 {
+    font-size:.78rem;
+    line-height:1.5;
+  }
+  .cta {
+    gap:.8rem;
+    padding:1.2rem 1rem;
+  }
+  .h.w {
+    font-size:clamp(1rem,4.5vw,1.2rem);
+  }
+  .burst {
+    right:-24px;
+    bottom:-24px;
+    width:82px;
+  }
+  .contact .ci,.contact .form {
+    gap:.85rem;
+    padding:1.1rem 1rem;
+  }
+  .clist2 {
+    gap:.65rem;
+  }
+  .clist2 li {
+    gap:.7rem;
+    align-items:flex-start;
+  }
+  .clist2 .sq.sm {
+    width:2rem;
+    height:2rem;
+  }
+  .contact .btns {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    width:100%;
+    gap:.6rem;
+  }
+  .contact .btns .btn {
+    justify-content:center;
+    padding:.75rem .5rem;
+    font-size:.7rem;
+  }
+  .form input,.form textarea {
+    padding:.65rem .7rem;
+    font-size:1rem;
+  }
+  .form .btn {
+    justify-content:space-between;
+    width:100%;
+  }
+  .fnote {
+    font-size:.68rem;
+  }
+  .foot .cell {
+    padding:.85rem 1rem;
+  }
+  .fc {
+    font-size:.7rem;
+  }
+  .fc nav {
+    gap:.65rem 1rem;
+  }
+  .dlg {
+    width:calc(100% - 1.5rem);
+    max-height:calc(100dvh - 1.5rem);
+    box-shadow:6px 6px 0 var(--bd);
+  }
+  .dh {
+    gap:.6rem;
+    align-items:flex-start;
+    padding:.75rem .9rem;
+  }
+  .dh h2 {
+    padding-top:.15rem;
+    font-size:1rem;
+    line-height:1.2;
+  }
+  .db {
+    gap:.9rem;
+    padding:1rem;
+  }
+  .m-shots {
+    grid-template-columns:1fr;
+  }
+  .m-shots .ph {
+    aspect-ratio:16/9;
+  }
+  .m-lists {
+    grid-template-columns:1fr;
+    gap:1rem;
+  }
+}
+@media(max-width:400px) {
+  .head .logo {
+    padding-inline:.85rem;
+    font-size:.82rem;
+  }
+  .head .tcell,.head .menu-btn {
+    width:2.9rem;
+  }
+  .contact .btns {
+    grid-template-columns:1fr;
   }
 }
 @media(prefers-reduced-motion:reduce) {
