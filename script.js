@@ -11,8 +11,8 @@
     paint();
   });
 
-  const menu = $('.menu-btn')[0], nav = $('.nav')[0];
-  const setMenu = o => { nav.classList.toggle('open', o); menu.setAttribute('aria-expanded', o); };
+  const menu = $('.menu-btn')[0], nav = $('.nav')[0], head = $('.head')[0];
+  const setMenu = o => { nav.classList.toggle('open', o); menu.setAttribute('aria-expanded', o); if (o) head.classList.remove('head-hide'); };
   menu.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
   nav.addEventListener('click', e => e.target.closest('a') && setMenu(false));
   document.addEventListener('click', e => {
@@ -20,6 +20,15 @@
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
   matchMedia('(min-width:961px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+
+  let lastY = window.scrollY;
+  addEventListener('scroll', () => {
+    const y = Math.max(0, window.scrollY), dy = y - lastY;
+    if (nav.classList.contains('open') || y <= 100 || dy > 4) head.classList.remove('head-hide');
+    else if (dy < -4) head.classList.add('head-hide');
+    if (Math.abs(dy) > 4) lastY = y;
+  }, { passive: true });
+  head.addEventListener('focusin', () => head.classList.remove('head-hide'));
 
   const links = $('a', nav), alias = { 'skills-all': 'skills', contact: null };
   const spy = new IntersectionObserver(es => es.forEach(e => {
@@ -41,26 +50,88 @@
     hr.addEventListener('pointerleave', () => { hr.style.setProperty('--px', 0); hr.style.setProperty('--py', 0); });
   }
 
-  const track = document.getElementById('track'), slides = $('.slide', track), dots = document.getElementById('dots');
-  let i = 0, timer;
-  slides.forEach((s, k) => { const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-label', 'Show ' + s.dataset.title); b.addEventListener('click', () => { go(k); restart(); }); dots.appendChild(b); });
-  const go = k => { i = (k + slides.length) % slides.length; track.style.transform = `translateX(-${i * 100}%)`; $('button', dots).forEach((b, j) => b.setAttribute('aria-selected', j === i)); slides.forEach((s, j) => s.toggleAttribute('inert', j !== i)); };
-  const restart = () => { clearInterval(timer); if (!reduce) timer = setInterval(() => go(i + 1), 7000); };
-  document.getElementById('prev').addEventListener('click', () => { go(i - 1); restart(); });
-  document.getElementById('next').addEventListener('click', () => { go(i + 1); restart(); });
-  const car = document.getElementById('car');
-  car.addEventListener('pointerenter', () => clearInterval(timer)); car.addEventListener('pointerleave', restart); car.addEventListener('focusin', () => clearInterval(timer));
-  go(0); restart();
+  const folders = $('.folder'), fTabs = $('.f-tab');
+  const setFolder = (f, on) => {
+    f.classList.toggle('open', on);
+    f.hidden = !on;
+    f.inert = !on;
+    const tab = fTabs.find(t => t.getAttribute('aria-controls') === f.id);
+    if (tab) {
+      tab.setAttribute('aria-expanded', on);
+      tab.classList.toggle('open', on);
+    }
+  };
+  folders.forEach(f => setFolder(f, f.classList.contains('open')));
+  fTabs.forEach(tab => {
+    const f = document.getElementById(tab.getAttribute('aria-controls'));
+    if (!f) return;
+    tab.addEventListener('click', () => {
+      if (f.classList.contains('open')) return;
+      folders.forEach(o => setFolder(o, o === f));
+    });
+  });
+
+  const phFallback = img => {
+    const ph = img.closest('.ph');
+    if (!ph) return;
+    const label = document.createElement('span');
+    label.textContent = img.alt || 'Screenshot coming soon';
+    ph.replaceChildren(ph.querySelector('.ic') || '', label);
+  };
+  $('.shot img').forEach(img => {
+    img.addEventListener('error', () => phFallback(img), { once: true });
+    if (img.complete && img.naturalWidth === 0) phFallback(img);
+  });
+
+  const schoolLogo = $('.school-logo')[0], schoolImg = schoolLogo && $('img', schoolLogo)[0];
+  if (schoolImg) {
+    const logoFallback = () => schoolLogo.classList.add('no-img');
+    schoolImg.addEventListener('error', logoFallback, { once: true });
+    if (schoolImg.complete && schoolImg.naturalWidth === 0) logoFallback();
+  }
 
   const dlg = document.getElementById('dlg'), dt = document.getElementById('dt'), db = document.getElementById('db'), dh = document.getElementById('dh');
   const open = (title, col, html) => { dt.textContent = title; dh.className = 'dh ' + col; db.innerHTML = html; db.scrollTop = 0; dlg.showModal(); root.classList.add('lock'); };
   dlg.addEventListener('close', () => root.classList.remove('lock'));
   document.getElementById('dx').addEventListener('click', () => dlg.close());
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
-  $('.more-btn').forEach(b => b.addEventListener('click', () => { const s = b.closest('.slide'); open(s.dataset.title, s.dataset.col, $('.more', s)[0].innerHTML); }));
+  $('.more-btn').forEach(b => b.addEventListener('click', () => { const s = b.closest('.folder'); open(s.dataset.title, s.dataset.col, $('.more', s)[0].innerHTML); }));
   const cols = ['pink', 'lime', 'purple'];
-  $('.ctile').forEach((b, k) => b.addEventListener('click', () => open('Certificate', cols[k % 3],
-    `<div class="ph cd-img" role="img" aria-label="Certificate image placeholder"><span>Certificate image placeholder</span></div><h3 class="full">${b.dataset.title}</h3><p class="cd-meta"><span class="tag lime">${b.dataset.year}</span><span>${b.dataset.issuer}</span></p><div class="btns"><span class="btn lime dis" aria-disabled="true">View Certificate: N/A</span></div>`)));
+  $('.cshot').forEach((button, index) => {
+    const thumb = $('img', button)[0];
+    if (thumb) {
+      const noThumb = () => button.classList.add('no-img');
+      thumb.addEventListener('error', noThumb, { once: true });
+      if (thumb.complete && thumb.naturalWidth === 0) noThumb();
+    }
+
+    button.addEventListener('click', () => {
+      const certificateDetails = `
+        <img class="cd-img" alt="${button.dataset.title}">
+        <h3 class="full">${button.dataset.title}</h3>
+        <p class="cd-meta">
+          <span class="tag lime">${button.dataset.year}</span>
+          <span>${button.dataset.issuer}</span>
+        </p>
+        <div class="btns">
+          <span class="btn lime dis" aria-disabled="true">View Certificate: N/A</span>
+        </div>
+      `;
+
+      open('Certificate', cols[index % 3], certificateDetails);
+
+      const certificateImage = db.querySelector('.cd-img');
+      certificateImage.addEventListener('error', () => {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'ph cd-img';
+        placeholder.setAttribute('role', 'img');
+        placeholder.setAttribute('aria-label', `${button.dataset.title} certificate image placeholder`);
+        placeholder.innerHTML = `<svg class="ic lg" aria-hidden="true"><use href="#i-image"/></svg><span>Certificate image coming soon</span>`;
+        certificateImage.replaceWith(placeholder);
+      }, { once: true });
+      certificateImage.src = button.dataset.image;
+    });
+  });
 
   const form = document.getElementById('form'), note = document.getElementById('note');
   const check = f => { const v = f.validity, m = v.valueMissing ? 'This field is required.' : v.typeMismatch ? 'Enter a valid email address.' : v.tooShort ? 'Write at least 10 characters.' : ''; f.nextElementSibling.textContent = m; f.setAttribute('aria-invalid', !!m); return !m; };
