@@ -43,6 +43,27 @@
   const rev = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rev.unobserve(e.target); } }), { threshold: .08 });
   $('.reveal').forEach(el => rev.observe(el));
 
+  const burst = (x, y) => {
+    if (reduce) return;
+    const cs = getComputedStyle(root);
+    const colors = ['--pink', '--lime', '--purple'];
+    for (let i = 0; i < 14; i++) {
+      const bit = document.createElement('span');
+      bit.className = 'confetti';
+      bit.style.left = x + 'px';
+      bit.style.top = y + 'px';
+      bit.style.background = cs.getPropertyValue(colors[i % 3]).trim() || '#FF7F9F';
+      document.body.appendChild(bit);
+      const ang = (Math.PI * 2 * i) / 14 + Math.random() * .4;
+      const dist = 46 + Math.random() * 84;
+      bit.animate([
+        { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+        { transform: `translate(${(Math.cos(ang) * dist).toFixed(1)}px, ${(Math.sin(ang) * dist + 130).toFixed(1)}px) rotate(${Math.round(Math.random() * 720 - 360)}deg)`, opacity: 0 }
+      ], { duration: 700 + Math.random() * 400, easing: 'cubic-bezier(.2,.7,.3,1)' })
+        .finished.finally(() => bit.remove());
+    }
+  };
+
   const mq = document.getElementById('mq'); const n = mq.children.length;
   mq.innerHTML += mq.innerHTML; $('li', mq).slice(n).forEach(li => li.setAttribute('aria-hidden', 'true'));
 
@@ -94,6 +115,15 @@
 
   const dlg = document.getElementById('dlg'), dt = document.getElementById('dt'), db = document.getElementById('db'), dh = document.getElementById('dh');
   const open = (title, col, html) => { dt.textContent = title; dh.className = 'dh ' + col; db.innerHTML = html; db.scrollTop = 0; dlg.showModal(); root.classList.add('lock'); };
+  db.addEventListener('error', e => {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement) || !img.closest('.mshot-media')) return;
+    const ph = document.createElement('span');
+    ph.className = 'mshot-ph';
+    ph.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-image"/></svg><b></b>`;
+    ph.querySelector('b').textContent = img.alt || 'Screenshot coming soon';
+    img.replaceWith(ph);
+  }, true);
   dlg.addEventListener('close', () => root.classList.remove('lock'));
   document.getElementById('dx').addEventListener('click', () => dlg.close());
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
@@ -109,14 +139,17 @@
       if (thumb.complete && thumb.naturalWidth === 0) noThumb();
     }
 
-    button.addEventListener('click', () => {
+    button.addEventListener('click', e => {
+      const rect = button.getBoundingClientRect();
+      const kb = e.detail === 0;
+      burst(kb ? rect.left + rect.width / 2 : e.clientX, kb ? rect.top + rect.height / 2 : e.clientY);
       const title = button.dataset.title || 'Certificate';
       const issuer = button.dataset.issuer || 'Issuer not listed';
       const year = button.dataset.year || '';
       const link = button.dataset.link || '';
       const linkHTML = link
-        ? `<a class="btn lime" href="${esc(link)}"${/^https?:/i.test(link) ? ' target="_blank" rel="noopener"' : ''}>${esc(certViewLabel)}</a>`
-        : `<span class="btn lime dis" aria-disabled="true">${esc(certViewLabel)}: N/A</span>`;
+        ? `<div class="btns"><a class="btn lime" href="${esc(link)}"${/^https?:/i.test(link) ? ' target="_blank" rel="noopener"' : ''}>${esc(certViewLabel)}</a></div>`
+        : "";
       const certificateDetails = `
         <img class="cd-img" alt="${esc(title)}">
         <h3 class="full">${esc(title)}</h3>
@@ -124,7 +157,7 @@
           <span class="tag lime">${esc(year)}</span>
           <span>${esc(issuer)}</span>
         </p>
-        <div class="btns">${linkHTML}</div>
+        ${linkHTML}
       `;
 
       open(certCfg.modalTitle || 'Certificate', cols[index % 3], certificateDetails);

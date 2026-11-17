@@ -49,6 +49,19 @@
       ]
     },
     {
+      id: "theme",
+      title: "Color Palette",
+      icon: "i-sun",
+      fields: [
+        { path: "theme.pink", label: "Pink accent", type: "color" },
+        { path: "theme.lime", label: "Lime accent", type: "color" },
+        { path: "theme.purple", label: "Purple accent", type: "color" },
+        { path: "theme.page", label: "Page background", type: "color", help: "Used in light mode. Dark mode keeps its own background." },
+        { path: "theme.paper", label: "Card background", type: "color" },
+        { path: "theme.ink", label: "Text & borders", type: "color", help: "Light mode only. Dark mode keeps its own text color." }
+      ]
+    },
+    {
       id: "hero",
       title: "Hero",
       icon: "i-ur",
@@ -190,10 +203,20 @@
                 {
                   path: "details.shots", label: "Screenshots", type: "list", itemLabel: "caption",
                   addLabel: "Add screenshot",
-                  template: { image: "", caption: "Screenshot description" },
+                  template: { image: "", caption: "Screenshot description", frame: "desktop" },
                   fields: [
                     { path: "image", label: "Image", type: "image" },
-                    { path: "caption", label: "Caption / alt text", type: "text" }
+                    { path: "caption", label: "Caption / alt text", type: "text" },
+                    {
+                      path: "frame", label: "Display frame", type: "select",
+                      help: "Choose how the screenshot is presented in the details modal.",
+                      options: [
+                        { value: "desktop", label: "Desktop / PC screen" },
+                        { value: "mobile", label: "Mobile phone" },
+                        { value: "tablet", label: "Tablet" },
+                        { value: "natural", label: "Natural image" }
+                      ]
+                    }
                   ]
                 },
                 {

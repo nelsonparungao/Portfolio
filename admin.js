@@ -335,6 +335,7 @@
   function renderField(field, obj) {
     if (field.type === "image") return renderImageField(field, obj);
     if (field.type === "file") return renderFileField(field, obj);
+    if (field.type === "color") return renderColorField(field, obj);
 
     const wide = field.type === "textarea" || field.type === "tags";
     const wrap = fieldShell(field, wide);
@@ -380,6 +381,46 @@
     }
 
     wrap.appendChild(input);
+    return wrap;
+  }
+
+  function renderColorField(field, obj) {
+    const wrap = fieldShell(field, false);
+    const value = String(get(obj, field.path) || "");
+    const valid = /^#[0-9a-f]{6}$/i.test(value);
+
+    const row = document.createElement("div");
+    row.className = "adm-color";
+
+    const picker = document.createElement("input");
+    picker.type = "color";
+    picker.value = valid ? value : "#000000";
+    picker.setAttribute("aria-label", `${field.label || "Color"} picker`);
+
+    const hex = document.createElement("input");
+    hex.type = "text";
+    hex.className = "adm-hex";
+    hex.value = value;
+    hex.placeholder = "#000000";
+    hex.spellcheck = false;
+    hex.setAttribute("aria-label", `${field.label || "Color"} hex value`);
+
+    picker.addEventListener("input", () => {
+      hex.value = picker.value;
+      set(obj, field.path, picker.value);
+      markDirty();
+    });
+
+    hex.addEventListener("input", () => {
+      const v = hex.value.trim();
+      if (/^#[0-9a-f]{6}$/i.test(v)) picker.value = v;
+      set(obj, field.path, v);
+      markDirty();
+    });
+
+    row.appendChild(picker);
+    row.appendChild(hex);
+    wrap.appendChild(row);
     return wrap;
   }
 

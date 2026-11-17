@@ -1,9 +1,9 @@
 # Portfolio Admin (Supabase)
 
 Your portfolio now has an admin page where every section can be edited:
-hero, about, education, marquee, technical skills, project folders, project
-details, certifications, experience, contact details, form labels, footer,
-navigation, and SEO.
+hero, about (including the education card), marquee, technical skills, project
+folders, project details, certifications, experience, contact details, form
+labels, footer, navigation, SEO, and the color palette.
 
 The public site reads its content from Supabase. If Supabase is not configured
 yet (or temporarily unavailable), it automatically falls back to the built-in
@@ -72,6 +72,9 @@ Refresh `index.html` and the content now comes from Supabase.
 - **Sidebar** jumps between sections.
 - **Text / textarea** fields save into the content object as you type.
 - **Tags** fields are one item per line (skills, roles, bullet points, paragraphs).
+- **Color** fields pair a color picker with a hex box; either one updates the
+  other. The palette applies to accents everywhere, while page and card colors
+  only affect light mode so dark mode stays readable.
 - **Image** fields accept either a URL or an uploaded file. Uploads go to
   Supabase Storage and return a public URL.
 - **Lists** (projects, certificates, timeline entries, nav links, etc.) have
@@ -158,10 +161,19 @@ editor** to explore the interface meanwhile.
 ## Content fields worth knowing
 
 - `hero.socials` — leave GitHub/LinkedIn blank to show a disabled icon.
-- `projects.items[].details.links` — blank links render as disabled buttons.
+- `about.education` — the education card in the About section: heading, school
+  eyebrow and name, optional school logo, and a list of label/value details
+  (degree, specialization, graduation year). Reorder details with ↑ ↓.
+- `theme` — pink, lime, and purple accents plus the light-mode page, card, and
+  text/border colors. Dark mode uses its own background and text colors.
+- `skills.groups` — one card per group with a title, color, and skill list.
+- `projects.items[].details.links` — links with a blank or N/A URL are hidden, so
+  **View Project** / **View Source Code** only appear when there is somewhere to go.
 - `certifications.items[].link` — optional; adds a **View Certificate** button.
-- `projects.items[].details.shots` — each screenshot can have its own image and
-  caption; without an image it shows a striped placeholder.
+  Leave it blank to hide the button instead of showing an N/A placeholder.
+- `projects.items[].details.shots` — each screenshot has an image, caption, and a
+  **Display frame**: Desktop / PC screen, Mobile phone, Tablet, or Natural image.
+  Without an image it shows a striped placeholder in the chosen frame.
 - `contact.items[].type` — controls whether the value becomes an email, phone,
   or URL link.
 - `nav.links[].mobileOnly` — keeps an item inside the mobile menu only.

@@ -70,6 +70,14 @@ window.PORTFOLIO_DEFAULT_CONTENT = {
       ]
     }
   },
+  theme: {
+    pink: "#FF7F9F",
+    lime: "#C5F04A",
+    purple: "#7A4DFF",
+    page: "#F4F2EC",
+    paper: "#FFFFFF",
+    ink: "#0D0D0D"
+  },
   marquee: {
     label: "SKILLS",
     href: "#skills-all",
@@ -103,7 +111,7 @@ window.PORTFOLIO_DEFAULT_CONTENT = {
   projects: {
     heading: "FEATURED PROJECTS",
     count: "03 FOLDERS",
-    detailsLabel: "View Details",
+    detailsLabel: "View Project",
     items: [
       {
         title: "SIERRA",
@@ -117,9 +125,9 @@ window.PORTFOLIO_DEFAULT_CONTENT = {
           fullTitle: "San Isidro Environmental Reporting and Response Application",
           description: "SIERRA is a web-based environmental reporting and response application developed for the Municipality of San Isidro, Nueva Ecija. Residents submit environmental concerns using geotagged reports with photo or video evidence. Barangay officials and MENRO personnel review, investigate, monitor, and resolve environmental reports.",
           shots: [
-            { image: "", caption: "SIERRA landing page and resident dashboard" },
-            { image: "", caption: "Environmental reporting and geotagging interface" },
-            { image: "", caption: "Barangay and MENRO management dashboard" }
+            { image: "", caption: "SIERRA landing page and resident dashboard", frame: "desktop" },
+            { image: "", caption: "Environmental reporting and geotagging interface", frame: "desktop" },
+            { image: "", caption: "Barangay and MENRO management dashboard", frame: "desktop" }
           ],
           objectives: {
             title: "Objectives",
@@ -142,8 +150,8 @@ window.PORTFOLIO_DEFAULT_CONTENT = {
             ]
           },
           links: [
-            { label: "View Project: N/A", href: "", style: "lime" },
-            { label: "View Source Code: N/A", href: "", style: "white" }
+            { label: "View Project", href: "", style: "lime" },
+            { label: "View Source Code", href: "", style: "white" }
           ]
         }
       },
@@ -159,8 +167,8 @@ window.PORTFOLIO_DEFAULT_CONTENT = {
           fullTitle: "Academic programming project",
           description: "A Python-based academic programming project designed to organize movie ticket reservations and booking activities.",
           shots: [
-            { image: "", caption: "Main system interface" },
-            { image: "", caption: "Movie selection or booking interface" }
+            { image: "", caption: "Main system interface", frame: "desktop" },
+            { image: "", caption: "Movie selection or booking interface", frame: "desktop" }
           ],
           objectives: {
             title: "Objectives",
@@ -176,8 +184,8 @@ window.PORTFOLIO_DEFAULT_CONTENT = {
             items: ["Participated in system development and programming, including booking-related functionalities."]
           },
           links: [
-            { label: "View Project: N/A", href: "", style: "lime" },
-            { label: "View Source Code: N/A", href: "", style: "white" }
+            { label: "View Project", href: "", style: "lime" },
+            { label: "View Source Code", href: "", style: "white" }
           ]
         }
       },
@@ -193,8 +201,8 @@ window.PORTFOLIO_DEFAULT_CONTENT = {
           fullTitle: "Banking Application UI/UX Design",
           description: "NovoBank is a conceptual digital banking application design project focused on creating a clean, organized, and user-friendly banking interface.",
           shots: [
-            { image: "", caption: "NovoBank main dashboard design" },
-            { image: "", caption: "Banking interface or transaction screen" }
+            { image: "", caption: "NovoBank main dashboard design", frame: "mobile" },
+            { image: "", caption: "Banking interface or transaction screen", frame: "mobile" }
           ],
           objectives: {
             title: "Objectives",
@@ -215,8 +223,8 @@ window.PORTFOLIO_DEFAULT_CONTENT = {
             ]
           },
           links: [
-            { label: "View Project: N/A", href: "", style: "lime" },
-            { label: "View Source Code: N/A", href: "", style: "white" }
+            { label: "View Project", href: "", style: "lime" },
+            { label: "View Source Code", href: "", style: "white" }
           ]
         }
       }

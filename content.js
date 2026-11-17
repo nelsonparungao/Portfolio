@@ -44,12 +44,10 @@
 
   const buttonHTML = (btn, fallbackStyle = "lime", arrow = true) => {
     const b = btn || {};
+    if (!isLink(b.href)) return "";
     const cls = `btn ${esc(b.style || fallbackStyle)}`;
-    const label = esc(b.label || "");
-    if (isLink(b.href)) {
-      return `<a class="${cls}" href="${esc(b.href)}">${label}${arrow ? icon("i-arrow") : ""}</a>`;
-    }
-    return `<span class="${cls} dis" aria-disabled="true">${label || "N/A"}</span>`;
+    const label = esc(String(b.label || "").replace(/\s*:\s*N\/A\s*$/i, ""));
+    return `<a class="${cls}" href="${esc(b.href)}">${label}${arrow ? icon("i-arrow") : ""}</a>`;
   };
 
   const socialLinksHTML = s => {
@@ -59,15 +57,18 @@
       { key: "linkedin", label: "LinkedIn", icon: "i-linkedin" },
       { key: "phone", label: "Call", icon: "i-phone", href: tel(s.phone) },
       { key: "email", label: "Email", icon: "i-mail", href: mail(s.email) }
-    ].map(item => {
-      const value = s[item.key];
-      if (!isLink(value)) {
-        return `<span class="sq dis" aria-disabled="true" title="${item.label}: N/A">${icon(item.icon)}<i class="sr">${item.label}: N/A</i></span>`;
-      }
-      const href = item.href || value;
-      const external = /^https?:/i.test(href);
-      return `<a class="sq" href="${esc(href)}" aria-label="${esc(item.label)}"${external ? ' target="_blank" rel="noopener"' : ""}>${icon(item.icon)}</a>`;
-    }).join("");
+    ]
+      .map(item => {
+        const value = s[item.key];
+        const url = item.href ? (isLink(value) ? item.href : "") : value;
+        return { ...item, url };
+      })
+      .filter(item => isLink(item.url))
+      .map(item => {
+        const href = item.url;
+        const external = /^https?:/i.test(href);
+        return `<a class="sq" href="${esc(href)}" aria-label="${esc(item.label)}"${external ? ' target="_blank" rel="noopener"' : ""}>${icon(item.icon)}</a>`;
+      }).join("");
   };
 
   /* ---------------------------------------------------------------- */
@@ -185,7 +186,7 @@
       head ? head.insertAdjacentHTML("afterend", html) : cell.insertAdjacentHTML("beforeend", html);
     }
 
-    const e = a.education;
+    const e = a.education || {};
     setText(".about .edu .h3", e.heading);
     setText(".about .edu .school small", e.eyebrow);
     setText(".about .edu .school-meta strong", e.school);
@@ -270,14 +271,24 @@
         : `<span>${esc(item.coverAlt || `Upload ${item.title} screenshot`)}</span>`;
 
       const shots = arr(d.shots).filter(s => s && (s.image || s.caption));
+      const frames = ["desktop", "mobile", "tablet", "natural"];
       const shotsHTML = shots.length ? `
-        <div class="m-shots" style="--n:${shots.length}">
-          ${shots.map(s => `
-            <div class="ph" role="img" aria-label="${esc(s.caption || "Project screenshot")}">
-              ${s.image
-                ? `<img src="${esc(s.image)}" alt="${esc(s.caption || "Project screenshot")}">`
-                : `${icon("i-image")}<span>${esc(s.caption || "Screenshot coming soon")}</span>`}
-            </div>`).join("")}
+        <div class="m-shots">
+          ${shots.map(s => {
+            const frame = frames.includes(s.frame) ? s.frame : "desktop";
+            const caption = s.caption || "";
+            const media = s.image
+              ? `<img src="${esc(s.image)}" alt="${esc(caption || "Project screenshot")}">`
+              : `<span class="mshot-ph">${icon("i-image")}<b>${esc(caption || "Screenshot coming soon")}</b></span>`;
+            return `
+              <figure class="mshot is-${frame}">
+                <div class="mshot-view">
+                  <span class="mshot-bar" aria-hidden="true"></span>
+                  <div class="mshot-media">${media}</div>
+                </div>
+                ${caption ? `<figcaption>${esc(caption)}</figcaption>` : ""}
+              </figure>`;
+          }).join("")}
         </div>` : "";
 
       const objectiveItems = arr(d.objectives && d.objectives.items);
@@ -288,8 +299,9 @@
           ${contributionItems.length ? `<div><h4>${esc(d.contributions.title || "My contribution")}</h4><ul class="list">${contributionItems.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
         </div>` : "";
 
-      const links = arr(d.links);
+      const links = arr(d.links).filter(l => l && isLink(l.href));
       const linksHTML = links.length ? `<div class="btns">${links.map(l => buttonHTML(l, "lime", false)).join("")}</div>` : "";
+      const detailsLabel = /^view details$/i.test(p.detailsLabel || "") ? "View Project" : (p.detailsLabel || "View Project");
 
       return `
         <article class="folder${i === 0 ? " open" : ""}" id="fold-${i}" role="region" aria-labelledby="fold-${i}-tab"
@@ -307,7 +319,7 @@
             <p>${esc(item.description)}</p>
             ${tags(item.tags)}
             <button class="btn lime more-btn" type="button">
-              ${esc(p.detailsLabel || "View Details")} ${icon("i-arrow")}
+              ${esc(detailsLabel)} ${icon("i-arrow")}
             </button>
           </div>
 
@@ -340,6 +352,7 @@
         : "";
       return `
         <button class="cshot${cert.image ? "" : " no-img"}" type="button"
+          aria-label="${esc(cert.title)}${cert.year ? `, ${esc(cert.year)}` : ""}"
           data-title="${esc(cert.title)}"
           data-issuer="${esc(cert.issuer)}"
           data-year="${esc(cert.year)}"
@@ -388,7 +401,7 @@
 
     const list = $(".contact .clist2");
     if (list) {
-      list.innerHTML = arr(ct.items).map(item => {
+      list.innerHTML = arr(ct.items).filter(item => item && isLink(item.value)).map(item => {
         const value = item.value || "";
         let content = esc(value);
         if (item.type === "email" && isLink(value)) content = `<a href="${esc(mail(value))}">${esc(value)}</a>`;
@@ -438,7 +451,30 @@
     if (socials) socials.innerHTML = socialLinksHTML(f.socials);
   }
 
+  function applyTheme(t) {
+    if (!t) return;
+    const hex = v => /^#[0-9a-f]{3,8}$/i.test(String(v || "")) ? String(v) : null;
+    const rootRules = [["--pink", t.pink], ["--lime", t.lime], ["--purple", t.purple]]
+      .filter(([, v]) => hex(v))
+      .map(([k, v]) => `${k}:${v}`);
+    const lightRules = [["--page", t.page], ["--paper", t.paper], ["--ink", t.ink], ["--bd", t.ink]]
+      .filter(([, v]) => hex(v))
+      .map(([k, v]) => `${k}:${v}`);
+
+    let el = document.getElementById("content-theme");
+    if (!el) {
+      el = document.createElement("style");
+      el.id = "content-theme";
+      document.head.appendChild(el);
+    }
+    el.textContent = [
+      rootRules.length ? `:root{${rootRules.join(";")}}` : "",
+      lightRules.length ? `:root:not([data-theme="dark"]){${lightRules.join(";")}}` : ""
+    ].filter(Boolean).join("\n");
+  }
+
   function render(c) {
+    applyTheme(c.theme);
     renderBrand(c);
     renderNav(c);
     renderHero(c);
@@ -482,6 +518,8 @@
       return { content: DEFAULTS, source: "error" };
     }
   }
+
+  applyTheme(DEFAULTS.theme);
 
   window.CONTENT_READY = loadContent().then(({ content, source }) => {
     try {

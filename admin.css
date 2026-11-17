@@ -441,6 +441,34 @@ select:focus {
 
 .adm-thumb[hidden] { display: none; }
 
+.adm-color {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  min-width: 0;
+}
+
+.adm-color input[type="color"] {
+  flex: none;
+  width: 3.1rem;
+  height: 2.5rem;
+  padding: 2px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  cursor: pointer;
+}
+
+.adm-color input[type="color"]::-webkit-color-swatch-wrapper { padding: 2px; }
+.adm-color input[type="color"]::-webkit-color-swatch { border: 0; }
+
+.adm-color .adm-hex {
+  flex: 1;
+  min-width: 0;
+  font-family: "Space Mono", ui-monospace, monospace;
+  letter-spacing: .03em;
+  text-transform: lowercase;
+}
+
 /* Save bar + toast */
 .adm-savebar {
   position: fixed;
