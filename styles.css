@@ -1239,12 +1239,14 @@ h1 {
   box-sizing:border-box;
   position:relative;
   display:block;
-  height:10.5rem;
+  width:100%;
+  aspect-ratio:11/8.5;
   overflow:hidden;
   background:#fff;
   border:3px solid var(--bd);
   box-shadow:4px 4px 0 var(--bd);
   cursor:pointer;
+  align-self:start;
   scroll-snap-align:start;
   transition:translate .2s var(--ease),box-shadow .2s var(--ease);
 }
@@ -1891,8 +1893,8 @@ html.lock {
     scroll-snap-type:none;
   }
   .cshot {
-    height:auto;
-    aspect-ratio:4/3;
+    border-width:2px;
+    box-shadow:3px 3px 0 var(--bd);
   }
   .cnote {
     margin-top:0;
@@ -2222,10 +2224,6 @@ html.lock {
   .cnote {
     margin-top:0;
   }
-  .cshot {
-    border-width:2px;
-    box-shadow:3px 3px 0 var(--bd);
-  }
   .cshot:hover {
     translate:none;
     box-shadow:3px 3px 0 var(--bd);
@@ -2356,9 +2354,6 @@ html.lock {
   .cgal {
     gap:.5rem;
     grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-  .cshot {
-    border-width:2px;
   }
   .cnote {
     font-size:.62rem;
