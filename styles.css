@@ -1214,9 +1214,9 @@ h1 {
   flex:1 1 0;
   min-height:0;
   display:grid;
-  grid-template-columns:1fr;
+  grid-template-columns:repeat(2,minmax(0,1fr));
   align-content:start;
-  gap:.7rem;
+  gap:1rem;
   padding:.1rem .4rem .8rem .1rem;
   overflow-y:auto;
   overscroll-behavior:contain;
@@ -1725,10 +1725,11 @@ h1 {
 .cd-img {
   display:block;
   width:100%;
-  aspect-ratio:16/10;
   max-width:520px;
+  max-height:60dvh;
+  aspect-ratio:11/8.5;
   object-fit:contain;
-  background:var(--paper);
+  background:#fff;
   border:3px solid var(--bd);
 }
 .ph.cd-img {
@@ -1886,7 +1887,7 @@ html.lock {
     width:100%;
     max-height:none;
     grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:.8rem;
+    gap:1rem;
     padding:0 .3rem .55rem;
     overflow:visible;
     overscroll-behavior:auto;
@@ -2218,7 +2219,7 @@ html.lock {
   }
   .cgal {
     width:100%;
-    gap:.55rem;
+    gap:.85rem;
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
   .cnote {
@@ -2352,7 +2353,7 @@ html.lock {
     padding:.85rem;
   }
   .cgal {
-    gap:.5rem;
+    gap:.7rem;
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
   .cnote {

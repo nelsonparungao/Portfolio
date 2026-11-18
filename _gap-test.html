@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Gap test</title>
+  <style>
+    body { margin: 0; display: flex; gap: 12px; align-items: flex-start; font-family: monospace; }
+    iframe { border: 2px solid #000; height: 1000px; background: #fff; }
+    iframe.m { width: 390px; }
+    iframe.t { width: 820px; }
+  </style>
+</head>
+<body>
+  <iframe class="m" src="index.html?v=21&gm=1"></iframe>
+  <iframe class="t" src="index.html?v=21&gt=1"></iframe>
+</body>
+</html>
