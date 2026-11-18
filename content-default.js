@@ -111,7 +111,7 @@ window.PORTFOLIO_DEFAULT_CONTENT = {
   projects: {
     heading: "FEATURED PROJECTS",
     count: "03 FOLDERS",
-    detailsLabel: "View Project",
+    detailsLabel: "View Details",
     items: [
       {
         title: "SIERRA",

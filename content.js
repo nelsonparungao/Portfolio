@@ -301,7 +301,6 @@
 
       const links = arr(d.links).filter(l => l && isLink(l.href));
       const linksHTML = links.length ? `<div class="btns">${links.map(l => buttonHTML(l, "lime", false)).join("")}</div>` : "";
-      const detailsLabel = /^view details$/i.test(p.detailsLabel || "") ? "View Project" : (p.detailsLabel || "View Project");
 
       return `
         <article class="folder${i === 0 ? " open" : ""}" id="fold-${i}" role="region" aria-labelledby="fold-${i}-tab"
@@ -319,7 +318,7 @@
             <p>${esc(item.description)}</p>
             ${tags(item.tags)}
             <button class="btn lime more-btn" type="button">
-              ${esc(detailsLabel)} ${icon("i-arrow")}
+              ${esc(p.detailsLabel || "View Details")} ${icon("i-arrow")}
             </button>
           </div>
 
